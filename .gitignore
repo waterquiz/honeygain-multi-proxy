@@ -1,0 +1,4 @@
+# Secrets and machine-generated files containing credentials
+.env
+proxies.txt
+docker-compose.yml

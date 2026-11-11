@@ -1,0 +1,3 @@
+@echo off
+echo Streaming logs from all Honeygain nodes (Press Ctrl+C to stop)...
+docker compose logs -f

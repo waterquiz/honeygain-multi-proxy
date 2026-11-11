@@ -1,0 +1,9 @@
+# Add one proxy per line (any of these formats):
+#   IP:PORT:USER:PASS
+#   IP:PORT
+#   socks5://USER:PASS@IP:PORT
+#   http://USER:PASS@IP:PORT
+# Optional custom device name at the end: IP:PORT:USER:PASS:DeviceName
+# Lines starting with # are ignored.
+
+# 1.2.3.4:50100:username:password:Device-01
