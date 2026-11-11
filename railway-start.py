@@ -156,11 +156,19 @@ def run_node_loop(proxy: dict, email: str, password: str, stop_event: threading.
         proxy["device"],
     ]
 
+    node_home = f"/tmp/hg_home_{proxy['index']}"
+    os.makedirs(node_home, exist_ok=True)
+    node_env = os.environ.copy()
+    node_env["HOME"] = node_home
+    node_env["HOSTNAME"] = f"DESKTOP-NODE-{proxy['index']}"
+    node_env.setdefault("LD_LIBRARY_PATH", "/usr/lib")
+
     while not stop_event.is_set():
         node_state["running"] = True
         proc = subprocess.Popen(
             cmd,
             cwd="/app",
+            env=node_env,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
             text=True,
