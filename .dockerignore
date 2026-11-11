@@ -1,0 +1,9 @@
+.git
+.env
+.env.example
+proxies.txt
+proxies.example.txt
+docker-compose.yml
+*.bat
+*.ps1
+README.md
