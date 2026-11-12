@@ -59,7 +59,10 @@ foreach ($line in $lines) {
   # Node $index ($deviceName)
   # ==============================
   tun2socks-${index}:
-    image: xjasonlyu/tun2socks:latest
+    image: honeygain-tun-dns:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.tun
     container_name: tun2socks-$index
     hostname: $hostname
     mac_address: "$macAddress"
@@ -72,20 +75,20 @@ foreach ($line in $lines) {
       - net.ipv4.ip_forward=1
       - net.ipv4.conf.all.rp_filter=0
     dns:
-      - 1.1.1.1
-      - 8.8.8.8
+      - 127.0.0.1
     volumes:
       - ./resolv.conf:/etc/resolv.conf:ro
     environment:
       - LOGLEVEL=info
       - TUN=tun0
       - PROXY=$proxyUrl
+      - EXTRA_COMMANDS=python3 /usr/local/bin/doh-dns.py >/tmp/doh.log 2>&1 &
     healthcheck:
-      test: ["CMD-SHELL", "ip link show tun0 >/dev/null 2>&1 || exit 1"]
-      interval: 3s
-      timeout: 3s
+      test: ["CMD-SHELL", "ip link show tun0 >/dev/null 2>&1 && nslookup api.honeygain.com 127.0.0.1 >/dev/null 2>&1 || exit 1"]
+      interval: 5s
+      timeout: 5s
       retries: 10
-      start_period: 2s
+      start_period: 3s
     networks:
       - $netName
 

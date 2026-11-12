@@ -1,0 +1,5 @@
+FROM xjasonlyu/tun2socks:latest
+
+RUN apk add --no-cache python3 ca-certificates
+
+COPY doh-dns.py /usr/local/bin/doh-dns.py

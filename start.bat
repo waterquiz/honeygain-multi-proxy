@@ -11,7 +11,7 @@ if %ERRORLEVEL% NEQ 0 (
 
 echo.
 echo Starting Honeygain Multi-Proxy Stack...
-docker compose up -d --remove-orphans
+docker compose up -d --build --remove-orphans
 if %ERRORLEVEL% EQU 0 (
     echo.
     echo All Honeygain nodes and isolated proxy tunnels started successfully!
